@@ -1,0 +1,18 @@
+{
+  "name": "node-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc index.ts",
+    "start": "yarn build && node index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.8",
+    "@types/yargs": "^15.0.4",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "yargs": "^15.3.1"
+  }
+}
