@@ -1,4 +1,13 @@
 import { combineReducers } from 'redux';
 
-export const rootReducer = combineReducers({});
+import CoursesReducer, { CoursesStateType } from './reducers/CoursesReducer';
+
+
+export type StateType = {
+  courses: CoursesStateType
+}
+
+export const rootReducer = combineReducers({
+  courses: CoursesReducer,
+});
 

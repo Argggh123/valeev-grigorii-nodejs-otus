@@ -15,7 +15,12 @@ const preloadedState = window.INITIAL_DATA || {};
 // @ts-ignore
 delete window.INITIAL_DATA;
 
-const store = createStore(rootReducer, preloadedState);
+const store = createStore(
+  rootReducer,
+  preloadedState,
+// @ts-ignore
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const app = (
   <Provider store={store}>

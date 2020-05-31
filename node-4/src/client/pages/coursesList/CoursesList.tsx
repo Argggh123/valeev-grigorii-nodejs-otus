@@ -1,38 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export type CourseItemType = {
-  id: number,
-  title: string,
-  description: string
-}
-
-const coursesList: CourseItemType[] = [
-  {
-    id: 1,
-    title: 'Курс 1',
-    description: 'Супер описание курса',
-  },
-  {
-    id: 2,
-    title: 'Курс 2',
-    description: 'Супер описание курса',
-  },
-  {
-    id: 3,
-    title: 'Курс 3',
-    description: 'Супер описание курса',
-  },
-  {
-    id: 4,
-    title: 'Курс 4',
-    description: 'Супер описание курса',
-  },
-];
+import { StateType } from '../../redux';
 
 export default function CoursesList(): React.ReactElement {
 
-  const getCourseCard = ({ title, id, description }: CourseItemType, index: number) => (
+  const { coursesList } = useSelector((state: StateType) => state.courses)
+
+  const getCourseCard = ({ title, id, description }, index: number) => (
     <div className="card mr-3 mb-3" key={`course-card-item-${index + 1}`}>
       <div className="card-body">
         <h5 className="card-title">
