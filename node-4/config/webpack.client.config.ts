@@ -4,10 +4,13 @@ import { config } from 'dotenv';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+import { mode } from './webpack.server.config';
+
 config();
 
 export const clientConfig: Configuration = {
-  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+  // @ts-ignore
+  mode: mode,
   devtool: 'inline-source-map',
   entry: {
     index: './src/client/index.tsx',
@@ -15,7 +18,7 @@ export const clientConfig: Configuration = {
   output: {
     path: path.join(__dirname, '..', 'dist'),
     publicPath: '/',
-    filename: process.env.NODE_ENV === 'development' ? '[name].js' : '[name].[hash].js',
+    filename: '[name].js',
   },
   plugins: [
     new HtmlWebpackPlugin({

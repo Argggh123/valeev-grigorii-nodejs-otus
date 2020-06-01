@@ -7,13 +7,13 @@ import renderApp from './app';
 
 config();
 
-const { PORT } = process.env;
+const PORT = process.env.PORT || 4000;
 const app = e();
 const server = createServer(app);
 
 app.use(
   e.static(
-    path.resolve('dist'),
+    path.resolve(__dirname),
     { index: false },
   ),
 );

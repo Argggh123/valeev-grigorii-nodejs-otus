@@ -5,10 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build:dev": "webpack -w",
     "build": "webpack",
-    "serve": "webpack -w & nodemon ./dist/server.js",
-    "start": "npm run build && npm run serve"
+    "watch": "webpack -w & nodemon ./dist/server.js",
+    "serve": "yarn run build && yarn run watch"
   },
   "devDependencies": {
     "@types/express": "4.17.6",

@@ -37,7 +37,7 @@ const renderApp = async (req, res) => {
       </Provider>,
     );
 
-    const indexFile = path.resolve('dist', 'index.html');
+    const indexFile = path.resolve(__dirname, 'index.html');
     let data = await readHtml(indexFile);
     data = data.replace(
       '<script>window.INITIAL_DATA = {}</script>',
