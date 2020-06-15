@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import {
   Link,
   useParams,
@@ -8,28 +7,30 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 
-import { StateType } from '../../redux';
 import LessonPage from '../lessonPage/LessonPage';
+import { useHttp } from '../../hooks/useHttp';
 
 export default function CoursesPage(): React.ReactElement {
   const { id } = useParams();
   const { url } = useRouteMatch();
 
-  const { coursesList } = useSelector((state: StateType) => state.courses);
+  const [course, loading, error] = useHttp(`/api/courses/${id}`);
 
-  const course = coursesList.find((course) => course.id === id);
+  if (!course && loading) {
+    return <>Loading...</>;
+  }
 
-  if (!course) {
-    return <div>Нет данных по курсу :(</div>;
+  if (error) {
+    return <>Something went wrong :(...</>;
   }
 
   const getCard = (item, index) => (
-    <div className="card" key={`course-lesson-item-${index + 1}`}>
+    <div className="card mr-3 mb-3 col" key={`course-lesson-item-${index + 1}`}>
       <div className="card-body">
-        <h5 className="card-title">{item.title}</h5>
-        <p className="card-text">{course.description}</p>
+        <h5 className="card-title">{item.name}</h5>
+        <p className="card-text">{item.description}</p>
         <Link
-          to={`/course/${id}/lesson/${item.id}`}
+          to={`/course/${id}/lesson/${item._id}`}
           className="btn btn-primary"
         >
           На страницу Урока
