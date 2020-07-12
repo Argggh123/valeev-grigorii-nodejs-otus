@@ -5,9 +5,11 @@ import { connect, connection } from 'mongoose';
 import { config } from 'dotenv';
 import { createServer } from 'http';
 
+import renderApp from './app';
 import { course } from './routes/course';
 import { lesson } from './routes/lesson';
-import renderApp from './app';
+import { auth } from './routes/auth';
+import cookieParser from 'cookie-parser';
 
 config();
 connect(
@@ -19,6 +21,7 @@ const PORT = process.env.PORT || 4000;
 const app = e();
 const server = createServer(app);
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(
   e.static(
     path.resolve(__dirname),
@@ -26,6 +29,7 @@ app.use(
   ),
 );
 
+app.use('/api/auth', auth)
 app.use('/api/courses', course);
 app.use('/api/lessons', lesson);
 
