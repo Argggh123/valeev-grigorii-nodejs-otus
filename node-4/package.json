@@ -10,8 +10,13 @@
     "serve": "yarn run build && yarn run watch"
   },
   "devDependencies": {
+    "@types/bcrypt": "3.0.0",
     "@types/body-parser": "1.19.0",
+    "@types/cookie-parser": "1.4.2",
     "@types/express": "4.17.6",
+    "@types/express-validator": "3.0.0",
+    "@types/js-cookie": "2.2.6",
+    "@types/jsonwebtoken": "8.5.0",
     "@types/mini-css-extract-plugin": "0.9.1",
     "@types/mongoose": "5.7.22",
     "@types/node": "14.0.1",
@@ -43,10 +48,15 @@
     "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
+    "bcrypt": "5.0.0",
     "body-parser": "1.19.0",
     "bootstrap": "4.5.0",
+    "cookie-parser": "1.4.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
+    "express-validator": "6.6.0",
+    "js-cookie": "2.2.1",
+    "jsonwebtoken": "8.5.1",
     "mongoose": "5.9.18",
     "react": "16.13.1",
     "react-dom": "16.13.1",

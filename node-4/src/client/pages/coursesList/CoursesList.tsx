@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useHttp } from '../../hooks/useHttp';
+import { useHttp, useLazyHttp } from '../../hooks/useHttp';
+import AuthContext from '../../context/Auth.Context';
 
 export default function CoursesList(): React.ReactElement {
-
+  const auth = useContext(AuthContext);
   const [data, loading, error] = useHttp('/api/courses');
+  const [fetch] = useLazyHttp();
+
+  const purchaseCourseHandler = (course: string) => {
+    fetch('/api/auth/purchase', {
+      method: 'POST', body: JSON.stringify({
+        courceId: course,
+      }),
+    });
+    console.log(course);
+  };
 
   const getCourseCard = ({ title, _id, description }, index: number) => (
     <div className="card mr-3 mb-3 col" key={`course-card-item-${index + 1}`}>
@@ -15,6 +26,9 @@ export default function CoursesList(): React.ReactElement {
         </h5>
         <p className="cad-text">{description}</p>
         <Link to={`/course/${_id}`} className="btn btn-primary">На страницу курса</Link>
+        {auth.isAuth
+          ? <button onClick={() => purchaseCourseHandler(_id)} className="btn btn-success">Приобрести курс</button>
+          : null}
       </div>
     </div>
   );

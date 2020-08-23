@@ -1,25 +1,31 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
-import AuthPage from './pages/auth/AuthPage';
-import CoursesList from './pages/coursesList/CoursesList';
-import CoursesPage from './pages/coursesPage/CoursesPage';
 import Layout from './hoc/Layout';
+import { useRoutes } from './hooks/useRoutes';
+import { useAuth } from './hooks/useAuth';
+import AuthContext from './context/Auth.Context';
 
 export default function App(): React.ReactElement {
+  const [login, logout, token, userId, isReady] = useAuth();
+  const isAuth = !!token;
+  const routes = useRoutes(isAuth);
+
+  if (!isReady) {
+    return <h1>Loading</h1>;
+  }
+
   return (
-    <Layout>
-      <Switch>
-        <Route exact path={'/'}>
-          <CoursesList />
-        </Route>
-        <Route path={'/auth'}>
-          <AuthPage />
-        </Route>
-        <Route path={'/course/:id'}>
-          <CoursesPage />
-        </Route>
-      </Switch>
+    <AuthContext.Provider value={{
+      isAuth,
+      token,
+      userId,
+      login,
+      logout,
+    }}>
+      <Layout>
+      {routes}
     </Layout>
+    </AuthContext.Provider>
+
   );
 }
